@@ -1,0 +1,69 @@
+.navbar {
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+#app {
+    margin-top: 48px;
+    min-height: 500px;
+}
+
+.tickets-counter {
+    background: #000;
+    border-radius: 50%;
+    color: #fff;
+    padding: 4px 8px;
+    font-weight: bolder;
+}
+
+.item {
+    width: 100%;
+    height: 454px;
+}
+
+.item > a > img {
+    width: 100%;
+}
+
+footer {
+    background: #2c3e50;
+    color: #fff;
+    height: 50px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+footer p {
+    font-size:15px;
+    margin: 15px 0;
+}
+
+
+
+.social-networks div a {
+    font-size: 2em;
+}
+
+.social-networks div a:hover {
+    color: #2c3e50;
+}
+
+.filter-by-date {
+    margin-bottom: 40px;
+}
+
+.price {
+    margin-top: 20px;
+}
+
+.log-p {
+    font-size: 1.2em;
+}
+
+.log-date {
+    color: #3498db;
+}
+
+.table th{
+    text-align: center;
+}
