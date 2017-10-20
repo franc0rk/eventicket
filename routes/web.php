@@ -13,4 +13,28 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index');
+
+/*
+ * Admin routes
+ */
+
+Route::prefix('admin')
+    ->middleware('user_type:1')
+    ->group(function () {
+        Route::view('/', 'admin.dashboard')->name('dashboard');
+    });
+
+/*
+ * Client routes
+ */
+
+Route::middleware('user_type:2')
+    ->group(function() {
+        Route::view('index', 'client.index')->name('index');
+        Route::get('profile', function() { return "Profile"; })->name('profile');
+        Route::get('history', function() { return "History"; })->name('history');
+        Route::get('configuration', function() { return "Configuration"; })->name('configuration');
+        Route::get('help', function() { return "Help";  })->name('help');
+
+    });

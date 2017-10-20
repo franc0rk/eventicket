@@ -22,62 +22,26 @@
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 </head>
 <body>
+        @guest
+            @include('layouts.navs.guest')
+        @else
+            @if(Auth::user()->user_type_id == 1)
+                @include('layouts.navs.admin')
+            @else(Auth::user()->user_type_id == 2)
+                @include('layouts.navs.client')
+            @endif
+        @endguest
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="dashboard.html">EvenTicket</a>
+        <div id="app">
+            @yield('content')
         </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                @guest
-                <li><a href="{{ route('login') }}">Login</a></li>
-                <li><a href="{{ route('register') }}">Register</a></li>
-                @else
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                    @endguest
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div id="app">
-    @yield('content')
-</div>
-
-<footer>
-    <div class="col-xs-12">
-        <p>EvenTicket&copy; 2017. Todos los derechos reservados.</p>
-    </div>
-</footer>
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <footer>
+            <div class="col-xs-12">
+                <p>EvenTicket&copy; 2017. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

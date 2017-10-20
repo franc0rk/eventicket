@@ -1,3 +1,5 @@
+@extends('admin.template')
+@section('admin_content')
 <h3>Escritorio</h3>
 <hr>
 <div class="row">
@@ -37,9 +39,9 @@
             <i class="fa fa-book"></i><strong> Usuario de prueba</strong> realizó una reservacion al evento <strong>Tigres vs Necaxa</strong>
             <br />
             <span class="log-date">
-                    				<i class="fa fa-calendar"></i> 25/Septiembre/2017
-                    				<i class="fa fa-clock-o"></i> 19:37
-                    			</span>
+                                <i class="fa fa-calendar"></i> 25/Septiembre/2017
+                                <i class="fa fa-clock-o"></i> 19:37
+                            </span>
         </p>
     </li>
 
@@ -48,9 +50,9 @@
             <i class="fa fa-book"></i><strong> Usuario de prueba2</strong> realizó una reservacion al evento <strong>Tigres vs Necaxa</strong>
             <br />
             <span class="log-date">
-                    				<i class="fa fa-calendar"></i> 25/Septiembre/2017
-                    				<i class="fa fa-clock-o"></i> 19:03
-                    			</span>
+                                <i class="fa fa-calendar"></i> 25/Septiembre/2017
+                                <i class="fa fa-clock-o"></i> 19:03
+                            </span>
         </p>
     </li>
 
@@ -59,9 +61,9 @@
             <i class="fa fa-calendar-o"></i><strong> Usuario administrador</strong> agrego el evento <strong>Northside Festival</strong>
             <br />
             <span class="log-date">
-                    				<i class="fa fa-calendar"></i> 20/Septiembre/2017
-                    				<i class="fa fa-clock-o"></i> 13:00
-                    			</span>
+                                <i class="fa fa-calendar"></i> 20/Septiembre/2017
+                                <i class="fa fa-clock-o"></i> 13:00
+                            </span>
         </p>
     </li>
 
@@ -70,9 +72,9 @@
             <i class="fa fa-cogs"></i><strong> Usuario administrador</strong> agrego el usuario <strong>Usuario de prueba</strong>
             <br />
             <span class="log-date">
-                    				<i class="fa fa-calendar"></i> 20/Septiembre/2017
-                    				<i class="fa fa-clock-o"></i> 12:43
-                    			</span>
+                                <i class="fa fa-calendar"></i> 20/Septiembre/2017
+                                <i class="fa fa-clock-o"></i> 12:43
+                            </span>
         </p>
     </li>
 
@@ -81,9 +83,9 @@
             <i class="fa fa-ticket"></i><strong> Usuario administrador</strong> agrego <strong>50</strong> boletos al evento <strong>Tigres vs Necaxa</strong>  en la zona <strong>Preferente Sur</strong>
             <br />
             <span class="log-date">
-	                    			<i class="fa fa-calendar"></i> 19/Septiembre/2017
-	                    			<i class="fa fa-clock-o"></i> 14:55
-                    			</span>
+                                <i class="fa fa-calendar"></i> 19/Septiembre/2017
+                                <i class="fa fa-clock-o"></i> 14:55
+                            </span>
         </p>
     </li>
 
@@ -92,10 +94,11 @@
             <i class="fa fa-calendar-o"></i><strong> Usuario administrador</strong> agrego el evento <strong>Tigres vs Necaxa</strong>
             <br />
             <span class="log-date">
-                    				<i class="fa fa-calendar"></i> 19/Septiembre/2017
-                    				<i class="fa fa-clock-o"></i> 14:52
-                    			</span>
+                                <i class="fa fa-calendar"></i> 19/Septiembre/2017
+                                <i class="fa fa-clock-o"></i> 14:52
+                            </span>
         </p>
     </li>
 </ul>
 </div>
+@endsection
