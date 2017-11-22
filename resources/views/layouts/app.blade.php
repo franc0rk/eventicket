@@ -10,16 +10,19 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Bootstrap for the CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Selectize js plugin styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.default.min.css">
     <!-- Bootstrap Flatly theme -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
     <!-- Custom styles -->
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <!-- Left Sidebar -->
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+
+
 </head>
 <body>
         @guest
@@ -41,7 +44,10 @@
                 <p>EvenTicket&copy; 2017. Todos los derechos reservados.</p>
             </div>
         </footer>
-        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script src="{{ asset('js/app.js') }}"></script>
+        <!-- Selectize js plugin -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>
+        @yield('scripts')
 </body>
 </html>

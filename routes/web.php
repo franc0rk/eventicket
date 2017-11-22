@@ -23,6 +23,9 @@ Route::prefix('admin')
     ->middleware('user_type:1')
     ->group(function () {
         Route::view('/', 'admin.dashboard')->name('dashboard');
+        Route::view('configuration','admin.configuration')->name('admin_configuration');
+        Route::resource('states', 'StatesController', ['except' => ['create', 'edit']]);
+        Route::get('mexico_states', 'StatesController@getMexicoStates');
     });
 
 /*
@@ -36,5 +39,4 @@ Route::middleware('user_type:2')
         Route::get('history', function() { return "History"; })->name('history');
         Route::get('configuration', function() { return "Configuration"; })->name('configuration');
         Route::get('help', function() { return "Help";  })->name('help');
-
     });

@@ -29,7 +29,7 @@
                                 Boletos </a>
                         </li>
                         <li>
-                            <a href="configuration.html">
+                            <a href="{{ route('admin_configuration') }}">
                                 <i class="fa fa-cogs"></i>
                                 Configuracion </a>
                         </li>
