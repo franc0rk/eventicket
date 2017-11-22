@@ -22,10 +22,20 @@ Route::get('/', 'HomeController@index');
 Route::prefix('admin')
     ->middleware('user_type:1')
     ->group(function () {
+        $resource_except = ['except' => ['create', 'edit']];
+
         Route::view('/', 'admin.dashboard')->name('dashboard');
+
+        //Configuration view
         Route::view('configuration','admin.configuration')->name('admin_configuration');
-        Route::resource('states', 'StatesController', ['except' => ['create', 'edit']]);
+
+        //States
+        Route::resource('states', 'StatesController', $resource_except);
         Route::get('mexico_states', 'StatesController@getMexicoStates');
+        Route::get('states_all','StatesController@all');
+
+        //Places
+        Route::resource('places','PlacesController', $resource_except);
     });
 
 /*

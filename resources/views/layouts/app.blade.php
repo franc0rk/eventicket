@@ -48,6 +48,19 @@
         <script src="{{ asset('js/app.js') }}"></script>
         <!-- Selectize js plugin -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>
+        <script>
+            function clearModal(form) {
+                $('.modal-title').empty();
+                $('.modal-body').empty();
+                if (form) $('.modal-footer').empty();
+            }
+
+            function refreshPage() {
+                setTimeout(function() {
+                    window.location.reload(true);
+                }, 1000);
+            }
+        </script>
         @yield('scripts')
 </body>
 </html>

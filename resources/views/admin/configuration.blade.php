@@ -20,7 +20,7 @@
         <div class="col-xs-12 col-md-3">
             <div class="panel panel-danger">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><a href="config/places.html"><i class="fa fa-map-marker"></i> Lugares</a></h3>
+                    <h3 class="panel-title"><a href="{{ route('places.index') }}"><i class="fa fa-map-marker"></i> Lugares</a></h3>
                 </div>
             </div>
         </div>

@@ -1,14 +1,14 @@
 @extends('admin.template')
 @section('admin_content')
     <div class="catalog-title">
-        <h1><i class="fa fa-map"></i> Estados</h1>
+        <h1><i class="fa fa-map-marker"></i> Lugares</h1>
         <hr>
     </div>
     <div class="search-bar">
         <div class="row">
             @include('layouts.partials.create_button')
             <div class="col-xs-10 text-rigth">
-                <form action="{{route('states.index')}}" method="get">
+                <form action="{{route('places.index')}}" method="get">
                     @include('layouts.partials.searcher')
                 </form>
             </div>
@@ -21,14 +21,16 @@
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($states as $state)
+                @foreach($places as $place)
                     <tr>
-                        <td>{{$state->id}}</td>
-                        <td>{{$state->name}}</td>
+                        <td>{{$place->id}}</td>
+                        <td>{{$place->name}}</td>
+                        <td>{{$place->state->name}}</td>
                         @include('layouts.partials.action_buttons')
                     </tr>
                 @endforeach
@@ -36,25 +38,26 @@
             </table>
         </div>
         <div class="col-xs-12 text-center">
-            {{$states->appends(['search' => $search])->links()}}
+            {{$places->appends(['search' => $search])->links()}}
         </div>
     </div>
-    @include('admin.catalogs.states.show')
+    @include('layouts.partials.modal')
 @endsection
-
 @section('scripts')
-    <script type="text/javascript">
+    <script>
         var select_state = null;
         /*Load States*/
         $('#search').on('input', function (event) {
-            $.get('states/?search=' + event.target.value, function (response) {
+            $.get('places/?search=' + event.target.value, function (response) {
                 $('tbody').empty();
                 $('.pagination').hide();
-                response.data.forEach(function (state) {
+                console.log(response);
+                response.data.forEach(function (place) {
                     var row = `
                         <tr>
-                            <td>${state.id}</td>
-                            <td>${state.name}</td>
+                            <td>${place.id}</td>
+                            <td>${place.name}</td>
+                            <td>${place.state.name}</td>
                             @include('layouts.partials.action_buttons')
                         </tr>
                     `;
@@ -62,44 +65,48 @@
                 });
             });
         });
-        /*Show a State*/
+
+        /*Show a Place*/
         $('.showButton').on('click', function () {
             var id = parseInt($(this).parent().parent().children()[0].innerText);
-            axios.get('states/'+id)
+            axios.get('places/'+id)
                 .then(function(response) {
                     clearModal(false);
-                    var state = {};
-                    state.id = response.data.id;
-                    state.name = response.data.name;
-                    state.created_at = response.data.created_at;
+                    var place = {};
+                    place.id = response.data.id;
+                    place.name = response.data.name;
+                    place.state = response.data.state.name;
+                    place.created_at = response.data.created_at;
 
-                    state.body = `
-                    <p><strong>Id:</strong> ${state.id}</p>
-                    <p><strong>Nombre:</strong> ${state.name}</p>
-                    <p><strong>Fecha de creacion:</strong> ${state.created_at}</p>
-                `;
+                    place.body = `
+                        <p><strong>Id:</strong> ${place.id}</p>
+                        <p><strong>Nombre:</strong> ${place.name}</p>
+                        <p><strong>Estado:</strong> ${place.state}
+                        <p><strong>Fecha de creacion:</strong> ${place.created_at}</p>
+                    `;
 
-                    $('.modal-title').append(`<h4><i class="fa fa-map"></i> ${state.name}</h4>`);
-                    $('.modal-body').append(state.body)
+                    $('.modal-title').append(`<h4><i class="fa fa-map-marker"></i> ${place.name}</h4>`);
+                    $('.modal-body').append(place.body)
                 });
 
             $('#show-modal').modal();
         });
+
         /*Create a State*/
         $('#createButton').on('click', function () {
             clearModal(true);
 
-            $('.modal-title').append(`<h4><i class="fa fa-map"></i> Crear estado</h4>`);
-            $('.modal-body').append(`@include('admin.catalogs.states.create')`);
+            $('.modal-title').append(`<h4><i class="fa fa-map-marker"></i> Crear lugar</h4>`);
+            $('.modal-body').append(`@include('admin.catalogs.places.form')`);
             $('.modal-footer').append(`@include('layouts.partials.store_button')`);
 
             select_state = $('#state');
             select_state.empty();
 
-            axios.get('mexico_states')
+            axios.get('states_all')
                 .then(function (response) {
                     response.data.forEach(function (state) {
-                        var option = `<option value="${state.region}">${state.region}</option>`;
+                        var option = `<option value="${state.id}">${state.name}</option>`;
                         select_state.append(option);
                     });
                     select_state.selectize();
@@ -107,15 +114,18 @@
 
             $('#show-modal').modal();
 
-            /* Store a State */
+            /* Store a Place */
             $('#storeButton').click(function () {
                 var data = {
-                    name: select_state.val()
+                    state_id: select_state.val(),
+                    name: $('#name').val()
                 };
-                axios.post('states', data)
+
+                console.log(data);
+                axios.post('places', data)
                     .then(function (response) {
                         console.log(response);
-                        toastr.success('Estado creado');
+                        toastr.success('Lugar creado');
                         $('#show-modal').modal('toggle');
                         refreshPage();
                     })
@@ -125,40 +135,43 @@
             });
         });
 
-        /* Edit a State */
+        /* Edit a Place */
         $('.editButton').on('click', function () {
             var id = parseInt($(this).parent().parent().children()[0].innerText);
-            var state = {};
-            axios.get('states/' + id)
+            var place = {};
+            axios.get('places/' + id)
                 .then(function (response) {
-                    state.id = response.data.id;
-                    state.name = response.data.name;
+                    place.id = response.data.id;
+                    place.name = response.data.name;
+                    place.state_id = response.data.state_id;
 
                     clearModal(true);
 
-                    $('.modal-title').append(`<h4><i class="fa fa-map"></i> Crear estado</h4>`);
-                    $('.modal-body').append(`@include('admin.catalogs.states.create')`);
+                    $('.modal-title').append(`<h4><i class="fa fa-map"></i> Editar lugar</h4>`);
+                    $('.modal-body').append(`@include('admin.catalogs.places.form')`);
                     $('.modal-footer').append(`@include('layouts.partials.store_button')`);
 
                     select_state = $('#state');
                     select_state.empty();
 
-                    axios.get('mexico_states')
+                    axios.get('states_all')
                         .then(function (response) {
                             response.data.forEach(function (state) {
-                                var option = `<option value="${state.region}">${state.region}</option>`;
+                                var option = `<option value="${state.id}">${state.name}</option>`;
                                 select_state.append(option);
                             });
-                            select_state.val(state.name);
+                            select_state.val(place.state_id);
+                            $('#name').val(place.name);
                             select_state.selectize();
                         });
 
                     /*Update a State*/
                     $('#storeButton').click(function () {
                         var data = {
-                            name: select_state.val()
+                            state_id: select_state.val(),
+                            name: $('#name').val()
                         };
-                        axios.put('states/'+state.id, data)
+                        axios.put('places/'+place.id, data)
                             .then(function (response) {
                                 console.log(response);
                                 toastr.success('Estado actualizado');
@@ -174,31 +187,29 @@
                 });
         });
 
+        /*Delete a Place*/
         $('.deleteButton').on('click', function() {
             clearModal(true);
             $('#show-modal').modal();
             var id = parseInt($(this).parent().parent().children()[0].innerText);
-            var state = {};
-            axios.get('states/' + id)
+            var place = {};
+            axios.get('places/' + id)
                 .then(function (response) {
-                    state.id = response.data.id;
-                    state.name = response.data.name;
+                    place.id = response.data.id;
+                    place.name = response.data.name;
 
-                    $('.modal-title').append(`<h4><i class="fa fa-map"></i> Eliminar ${state.name}</h4>`);
+                    $('.modal-title').append(`<h4><i class="fa fa-map"></i> Eliminar ${place.name}</h4>`);
                     $('.modal-body').append(`<p>¿Deseas eliminar este registro?</p>`);
                     $('.modal-footer').append(`@include('layouts.partials.destroy_button')`);
 
                     $('#destroyButton').click(function() {
-                       axios.delete('states/' + id)
-                           .then(function(response) {
-                               toastr.error(`${response.data.name} fue eliminado`);
-                               refreshPage();
-                           });
+                        axios.delete('places/' + id)
+                            .then(function(response) {
+                                toastr.error(`${response.data.name} fue eliminado`);
+                                refreshPage();
+                            });
                     });
                 });
         });
-
-
-
     </script>
 @endsection

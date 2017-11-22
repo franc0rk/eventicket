@@ -75,6 +75,11 @@ class StatesController extends Controller
         return response()->json($state);
     }
 
+    public function all()
+    {
+        return response()->json(State::all());
+    }
+
     public function getMexicoStates()
     {
         $client = new \GuzzleHttp\Client(['base_uri' => 'http://battuta.medunes.net/api/']);
