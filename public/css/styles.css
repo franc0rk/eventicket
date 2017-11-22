@@ -16,12 +16,12 @@
     font-weight: bolder;
 }
 
-.item {
+.item-pend {
     width: 100%;
     height: 454px;
 }
 
-.item > a > img {
+.item-pend > a > img {
     width: 100%;
 }
 
@@ -66,4 +66,22 @@ footer p {
 
 .table th{
     text-align: center;
+}
+
+.link {
+    background-color: transparent;
+    border-color: transparent;
+    color: #2c3e50;
+    font-weight: normal;
+    border-radius: 0;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    background-color: grey;
+}
+
+.catalog-title {
+    margin-bottom: 48px;
 }
