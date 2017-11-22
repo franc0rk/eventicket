@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Place;
+use App\Area;
 use Illuminate\Http\Request;
 
-class PlacesController extends Controller
+class AreasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +16,14 @@ class PlacesController extends Controller
     {
         if($request->ajax()){
             $search = $request->input('search');
-            $places = Place::with('state')->search($search)->paginate();
-            return response()->json($places);
+            $areas = Area::with('place')->search($search)->paginate();
+            return response()->json($areas);
         }
         $search = $request->input('search');
-        $places = Place::with('state')->search($search)->paginate();
-        return view('admin.catalogs.places.index', compact('places', 'search'));
+        $areas = Area::with('place')->search($search)->paginate();
+        return view('admin.catalogs.areas.index', compact('areas', 'search'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -34,8 +35,8 @@ class PlacesController extends Controller
     {
         $this->validate($request,$this->validationRules());
         $data = $request->all();
-        $place = Place::create($data);
-        return response()->json($place);
+        $area = Area::create($data);
+        return response()->json($area);
     }
 
     /**
@@ -46,9 +47,10 @@ class PlacesController extends Controller
      */
     public function show($id)
     {
-        $place = Place::with('state')->findOrFail($id);
-        return response()->json($place);
+        $area = Area::with('place')->findOrFail($id);
+        return response()->json($area);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -59,13 +61,13 @@ class PlacesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $place = Place::findOrFail($id);
+        $area = Area::findOrFail($id);
         $this->validate($request, $this->validationRules());
         $data = $request->all();
-        $place->fill($data);
-        $place->save();
+        $area->fill($data);
+        $area->save();
 
-        return response()->json($place);
+        return response()->json($area);
     }
 
     /**
@@ -76,22 +78,18 @@ class PlacesController extends Controller
      */
     public function destroy($id)
     {
-        $place = Place::findOrFail($id);
-        $place->delete();
+        $area = Area::findOrFail($id);
+        $area->delete();
 
-        return response()->json($place);
-    }
-
-    public function all()
-    {
-        return response()->json(Place::all());
+        return response()->json($area);
     }
 
     private function validationRules()
     {
         return [
-            'state_id' => 'required',
-            'name' => 'required'
+            'capacity' => 'required|integer|min:1|max:9999',
+            'place_id' => 'required',
+            'name' => 'required',
         ];
     }
 }

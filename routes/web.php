@@ -36,6 +36,10 @@ Route::prefix('admin')
 
         //Places
         Route::resource('places','PlacesController', $resource_except);
+        Route::get('places_all', 'PlacesController@all');
+
+        //Areas
+        Route::resource('areas','AreasController', $resource_except);
     });
 
 /*

@@ -27,7 +27,7 @@
         <div class="col-xs-12 col-md-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><a href="config/areas.html"><i class="fa fa-location-arrow"></i> Zonas</a></h3>
+                    <h3 class="panel-title"><a href="{{ route('areas.index') }}"><i class="fa fa-location-arrow"></i> Zonas</a></h3>
                 </div>
             </div>
         </div>
