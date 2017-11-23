@@ -17,6 +17,7 @@ class CreateAreasTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('place_id');
             $table->string('name');
+            $table->unsignedInteger('capacity');
 
             $table->foreign('place_id')->references('id')->on('places');
 

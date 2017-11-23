@@ -14,7 +14,7 @@
                                 Escritorio </a>
                         </li>
                         <li>
-                            <a href="events.html">
+                            <a href="{{route('events.index')}}">
                                 <i class="fa fa-calendar-o"></i>
                                 Eventos </a>
                         </li>
@@ -23,11 +23,11 @@
                                 <i class="fa fa-book"></i>
                                 Reservaciones </a>
                         </li>
-                        <li>
+                        <!--<li>
                             <a href="tickets.html">
                                 <i class="fa fa-ticket"></i>
                                 Boletos </a>
-                        </li>
+                        </li>-->
                         <li>
                             <a href="{{ route('admin_configuration') }}">
                                 <i class="fa fa-cogs"></i>

@@ -19,7 +19,9 @@ class CreateEventsTable extends Migration
             $table->unsignedInteger('place_id');
             $table->string('name');
             $table->mediumText('description');
-            $table->date('date');
+            $table->string('image_cover');
+            $table->string('image_thumbnail');
+            $table->dateTime('date');
 
             $table->foreign('event_type_id')->references('id')->on('event_types');
             $table->foreign('place_id')->references('id')->on('places');

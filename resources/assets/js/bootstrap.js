@@ -47,3 +47,5 @@ window.toastr.options = {
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
 };
+
+window.moment = require('moment');
