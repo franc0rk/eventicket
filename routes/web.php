@@ -50,6 +50,7 @@ Route::prefix('admin')
         Route::get('reservations','ReservationsController@index')->name('reservations.index');
         Route::get('reservations/{id}','ReservationsController@show')->name('reservations.show');
         Route::delete('reservations/{id}','ReservationsController@destroy')->name('reservations.destroy');
+
     });
 
 /*
