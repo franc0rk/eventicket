@@ -17,7 +17,8 @@ class CreateReservationsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('event_id');
-            $table->date('expiration');
+            $table->unsignedInteger('tickets');
+            $table->dateTime('expiration')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('event_id')->references('id')->on('events');

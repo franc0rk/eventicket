@@ -27,6 +27,12 @@ class EventsController extends Controller
         return view('admin.events.index', compact('events', 'search'));
     }
 
+    public function getClientEvents()
+    {
+        $events = Event::with('place')->paginate(3);
+        return view('client.events', compact('events'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *

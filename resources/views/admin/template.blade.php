@@ -8,18 +8,18 @@
                 <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
                     <ul class="nav">
-                        <li class="active">
-                            <a href="dashboard.html">
+                        <li {{setActive('admin')}}>
+                            <a href="{{route('admin_dashboard')}}">
                                 <i class="fa fa-dashboard"></i>
                                 Escritorio </a>
                         </li>
-                        <li>
+                        <li {{setActive('admin/events')}}>
                             <a href="{{route('events.index')}}">
                                 <i class="fa fa-calendar-o"></i>
                                 Eventos </a>
                         </li>
-                        <li>
-                            <a href="reservations.html">
+                        <li {{setActive('admin/reservations')}}>
+                            <a href="{{route('reservations.index')}}">
                                 <i class="fa fa-book"></i>
                                 Reservaciones </a>
                         </li>
@@ -28,16 +28,16 @@
                                 <i class="fa fa-ticket"></i>
                                 Boletos </a>
                         </li>-->
-                        <li>
+                        <li {{setActive('admin/configuration')}}>
                             <a href="{{ route('admin_configuration') }}">
                                 <i class="fa fa-cogs"></i>
-                                Configuracion </a>
+                                Configuración </a>
                         </li>
-                        <li>
-                            <a href="help.html">
+                        <!--<li>
+                            <a href="">
                                 <i class="fa fa-info-circle"></i>
                                 Ayuda </a>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
                 <!-- END MENU -->

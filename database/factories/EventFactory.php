@@ -8,8 +8,8 @@ $factory->define(\App\Event::class, function (Faker $faker) {
         'place_id'        => rand(1,6),
         'name'            => $faker->word,
         'description'     => $faker->paragraph,
-        'image_cover'     => $faker->imageUrl(),
-        'image_thumbnail' => $faker->imageUrl(200,200),
+        'image_cover'     => $faker->imageUrl(1600,500),
+        'image_thumbnail' => $faker->imageUrl(1600,500),
         'date'            => $faker->dateTime
     ];
 });

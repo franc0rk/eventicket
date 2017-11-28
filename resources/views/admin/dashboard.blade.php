@@ -3,37 +3,37 @@
 <h3>Escritorio</h3>
 <hr>
 <div class="row">
-    <div class="col-xs-12 col-md-3">
+    <div class="col-xs-12 col-md-4">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title"><a href="events.html"><i class="fa fa-calendar-o"></i> Eventos</a></h3>
+                <h3 class="panel-title"><a href="{{route('events.index')}}"><i class="fa fa-calendar-o"></i> Eventos</a></h3>
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-md-3">
+    <div class="col-xs-12 col-md-4">
         <div class="panel panel-success">
             <div class="panel-heading">
-                <h3 class="panel-title"><a href="reservations.html"><i class="fa fa-book"></i> Reservaciones</a></h3>
+                <h3 class="panel-title"><a href="{{route('reservations.index')}}"><i class="fa fa-book"></i> Reservaciones</a></h3>
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-md-3">
+    <!--<div class="col-xs-12 col-md-3">
         <div class="panel panel-danger">
             <div class="panel-heading">
                 <h3 class="panel-title"><a href="tickets.html"><i class="fa fa-ticket"></i> Boletos</a></h3>
             </div>
         </div>
-    </div>
-    <div class="col-xs-12 col-md-3">
+    </div>-->
+    <div class="col-xs-12 col-md-4">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><a href="configuration.html"><i class="fa fa-cogs"></i> Configuración</a></h3>
+                <h3 class="panel-title"><a href="{{route('admin_configuration')}}"><i class="fa fa-cogs"></i> Configuración</a></h3>
             </div>
         </div>
     </div>
 </div>
-<h4>Ultimas actividades</h4>
-<ul class="list-group">
+<h4 style="display:none;">Ultimas actividades</h4>
+<ul style="display:none" class="list-group">
     <li class="list-group-item">
         <p class="log-p">
             <i class="fa fa-book"></i><strong> Usuario de prueba</strong> realizó una reservacion al evento <strong>Tigres vs Necaxa</strong>

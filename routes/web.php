@@ -24,7 +24,8 @@ Route::prefix('admin')
     ->group(function () {
         $resource_except = ['except' => ['create', 'edit']];
 
-        Route::view('/', 'admin.dashboard')->name('dashboard');
+        Route::view('/', 'admin.dashboard')->name('admin_dashboard');
+        Route::view('help','admin.help')->name('admin_help');
 
         //Configuration view
         Route::view('configuration','admin.configuration')->name('admin_configuration');
@@ -44,6 +45,11 @@ Route::prefix('admin')
         //Events
         Route::resource('events','EventsController',$resource_except);
         Route::get('event_types_all','EventsController@getEventTypes');
+
+        //Reservations
+        Route::get('reservations','ReservationsController@index')->name('reservations.index');
+        Route::get('reservations/{id}','ReservationsController@show')->name('reservations.show');
+        Route::delete('reservations/{id}','ReservationsController@destroy')->name('reservations.destroy');
     });
 
 /*
@@ -52,9 +58,13 @@ Route::prefix('admin')
 
 Route::middleware('user_type:2')
     ->group(function() {
-        Route::view('index', 'client.index')->name('index');
+        Route::get('events/{id}','ClientsController@showEvent')->name('client.events.show');
+        Route::get('index', 'ClientsController@index')->name('index');
         Route::get('profile', function() { return "Profile"; })->name('profile');
         Route::get('history', function() { return "History"; })->name('history');
         Route::get('configuration', function() { return "Configuration"; })->name('configuration');
         Route::get('help', function() { return "Help";  })->name('help');
+
+        Route::post('reservations','ReservationsController@store')->name('reservations.store');
+        Route::get('events','EventsController@getClientEvents')->name('client_events');
     });
