@@ -1,9 +1,7 @@
 @extends('admin.template')
 @section('admin_content')
-    <div class="catalog-title">
-        <h1><i class="fa fa-map"></i> Estados</h1>
-        <hr>
-    </div>
+    <h2><i class="fa fa-map"></i> Estados</h2>
+    <hr>
     <div class="search-bar">
         <div class="row">
             @include('layouts.partials.create_button')

@@ -36,6 +36,10 @@ class ReservationsController extends Controller
         $data = $request->all();
         $reservation = Reservation::create($data);
 
+        \Mail::send('emails.reservation',['reservation' => $reservation], function($message) use ($reservation) {
+            $message->to($reservation->user->email, $reservation->user->name, 'Reservación '.$reservation->id);
+        });
+
         return response()->json($reservation);
     }
 

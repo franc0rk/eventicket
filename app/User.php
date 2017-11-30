@@ -32,4 +32,9 @@ class User extends Authenticatable
         return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
     }
 
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
 }

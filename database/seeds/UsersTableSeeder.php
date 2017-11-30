@@ -12,9 +12,15 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         factory(\App\User::class)->create([
-            'email' => 'admin@eventicket.me',
-            'user_type_id' => 1
+            'email' => 'admin@eventicket.app',
+            'user_type_id' => 1,
         ]);
+
+        factory(\App\User::class)->create([
+                'email' => 'client@eventicket.app',
+                'user_type_id' => 2,
+            ]
+        );
 
         factory(\App\User::class, 10)->create();
     }

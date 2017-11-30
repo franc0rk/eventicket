@@ -1,9 +1,7 @@
 @extends('admin.template')
 @section('admin_content')
-    <div class="catalog-title">
-        <h1><i class="fa fa-book"></i> Reservaciones</h1>
-        <hr>
-    </div>
+    <h2><i class="fa fa-book"></i> Reservaciones</h2>
+    <hr>
     <div class="search-bar">
         <div class="row">
                 <div class="col-xs-12 text-rigth">

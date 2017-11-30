@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use App\EventType;
+use App\State;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -27,11 +28,61 @@ class EventsController extends Controller
         return view('admin.events.index', compact('events', 'search'));
     }
 
-    public function getClientEvents()
+    public function getClientEvents(Request $request)
     {
-        $events = Event::with('place')->paginate(3);
-        return view('client.events', compact('events'));
+        $event_types = EventType::all();
+        $states      = State::all();
+        if($request->ajax()) {
+            $search = $request->input('search');
+            $events = Event::with(['eventType', 'place'])->current()->search($search)->paginate();
+            return response()->json($events);
+        }
+
+        $keys = array_keys($request->all());
+        session()->put('values', $request->all());
+
+        $event_types_filter = array_filter($keys, function($r) {
+            return str_contains($r, 'event_type_');
+        });
+
+        $event_types_filter = array_map(function($r) {
+            return intval(substr($r, 11));
+        }, $event_types_filter);
+
+
+        $states_filter = array_filter($keys, function($r) {
+            return str_contains($r, 'state_');
+        });
+
+        $states_filter = array_map(function($r) {
+            return intval(substr($r, 6));
+        }, $states_filter);
+
+
+
+        if(empty($event_types_filter)) {
+            foreach ($event_types as $event_type) {
+                array_push($event_types_filter, $event_type->id);
+            }
+        }
+
+        if(empty($states_filter)) {
+            foreach ($states as $state) {
+                array_push($states_filter, $state->id);
+            }
+        }
+
+        $search = $request->input('search');
+        $events = Event::with(['eventType','place'])
+            ->current()
+            ->byEventType($event_types_filter)
+            ->byState($states_filter)
+            ->search($search)
+            ->get();
+        return view('client.events', compact('events', 'states', 'event_types', 'search', 'event_types_filter'));
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -109,7 +160,7 @@ class EventsController extends Controller
             'description' => 'required',
             'image_cover' => $image_rule,
             'image_thumbnail' => $image_rule,
-            'date' => 'required|date'
+            'date' => 'required|date|after:2 hours'
         ];
     }
 }

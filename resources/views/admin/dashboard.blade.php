@@ -1,6 +1,10 @@
 @extends('admin.template')
 @section('admin_content')
-<h3>Escritorio</h3>
+<h2>
+    <i class="fa fa-dashboard"></i>
+     Escritorio
+</h2>
+
 <hr>
 <div class="row">
     <div class="col-xs-12 col-md-4">

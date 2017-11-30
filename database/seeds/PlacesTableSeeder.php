@@ -11,6 +11,6 @@ class PlacesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Place::class, 6)->create();
+        factory(\App\Place::class, 2)->create();
     }
 }

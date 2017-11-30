@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -23,8 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (request()->user()->user_type_id == 1) {
-            return redirect('/admin');
+        if(!Auth::guest()) {
+            if (request()->user()->user_type_id == 1) {
+                return redirect('/admin');
+            }
         }
 
         return redirect('/index');

@@ -1,9 +1,7 @@
 @extends('admin.template')
 @section('admin_content')
-    <div class="catalog-title">
-        <h1><i class="fa fa-calendar-o"></i> Eventos</h1>
-        <hr>
-    </div>
+    <h2><i class="fa fa-calendar-o"></i> Eventos</h2>
+    <hr>
     <div class="search-bar">
         <div class="row">
             @include('layouts.partials.create_button')
@@ -75,6 +73,7 @@
             axios.get('events/'+id)
                 .then(function(response) {
                     clearModal(false);
+                    console.log(response.data);
                     var event = {};
                     event.id = response.data.id;
                     event.name = response.data.name;
@@ -171,9 +170,12 @@
 
                 form_data.append('event_type_id', select_event_type.val());
                 form_data.append('place_id', select_place.val());
+                form_data.append('state_id', select_place.val());
                 form_data.append('name', $('#name').val());
                 form_data.append('description', $('#description').val());
                 form_data.append('date', $('#date').val());
+
+                console.log(form_data);
 
                 axios.post('events', form_data)
                     .then(function (response) {

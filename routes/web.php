@@ -20,7 +20,7 @@ Route::get('/', 'HomeController@index');
  */
 
 Route::prefix('admin')
-    ->middleware('user_type:1')
+    ->middleware(['auth','user_type:1'])
     ->group(function () {
         $resource_except = ['except' => ['create', 'edit']];
 
@@ -57,15 +57,19 @@ Route::prefix('admin')
  * Client routes
  */
 
-Route::middleware('user_type:2')
+Route::middleware(['auth','user_type:2'])
     ->group(function() {
-        Route::get('events/{id}','ClientsController@showEvent')->name('client.events.show');
-        Route::get('index', 'ClientsController@index')->name('index');
-        Route::get('profile', function() { return "Profile"; })->name('profile');
-        Route::get('history', function() { return "History"; })->name('history');
-        Route::get('configuration', function() { return "Configuration"; })->name('configuration');
-        Route::get('help', function() { return "Help";  })->name('help');
+        Route::view('profile', 'client.profile.index')->name('profile');
+        Route::view('history', 'client.profile.history')->name('history');
+        Route::view('configuration', 'client.profile.configuration')->name('configuration');
 
         Route::post('reservations','ReservationsController@store')->name('reservations.store');
-        Route::get('events','EventsController@getClientEvents')->name('client_events');
+        Route::get('reservations/{id}','ClientsController@showReservation')->name('client.reservations.show');
+
+        Route::resource('users', 'UsersController');
+        Route::put('users_password/{id}', 'UsersController@updatePassword')->name('users.update_password');
     });
+
+Route::get('index', 'ClientsController@index')->name('index');
+Route::get('events','EventsController@getClientEvents')->name('client.events.index');
+Route::get('events/{id}','ClientsController@showEvent')->name('client.events.show');

@@ -18,10 +18,12 @@ class CreateReservationsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('event_id');
             $table->unsignedInteger('tickets');
+            $table->string('area')->default('');
+            $table->float('total')->default(0);
             $table->dateTime('expiration')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
 
             $table->timestamps();
         });

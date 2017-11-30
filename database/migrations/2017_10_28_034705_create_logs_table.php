@@ -18,8 +18,8 @@ class CreateLogsTable extends Migration
             $table->unsignedInteger('log_type_id');
             $table->unsignedInteger('user_id');
 
-            $table->foreign('log_type_id')->references('id')->on('log_types');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('log_type_id')->references('id')->on('log_types')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

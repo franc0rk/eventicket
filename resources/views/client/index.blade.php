@@ -21,7 +21,7 @@
                     <h2>{{$event->name}}</h2>
                     <p>{{$event->description}}</p>
                 </div>
-                <a href="{{route('client.events.show',$event->id)}}"><img src="{{$event->image_cover}}"></a>
+                <a href="{{route('client.events.show',$event->id)}}"><img src="{{asset($event->image_cover)}}"></a>
             </div>
             @endforeach
         </div>
@@ -38,10 +38,45 @@
     </div>
 
 
-    <!--<div class="container">
+    <div class="container">
         <div class="col-xs-12">
             <h2 class="text-center">Buscar un evento</h2>
-            <input id="search_event" name="search_event" type="text" class="form-control text-center" placeholder="Ingresa palabras claves del evento aquí">
+            <form action="{{route('client.events.index')}}" method="get">
+                @include('layouts.partials.searcher')
+            </form>
+            <div id="events_found"></div>
         </div>
-    </div>-->
+    </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#search').on('input', function (event) {
+            if($('#search').val() !== '') {
+                $.get('events/?search=' + event.target.value, function (response) {
+                    $('#events_found').empty();
+                    response.data.forEach(function (event) {
+                        console.log(event);
+                        var row = `
+                        <div class="row" style="cursor: pointer" onclick="window.location.replace('events/'+${event.id})">
+                            <div class="col-xs-12">
+                                <div class="col-sm-3">
+                                    <img src="${event.image_thumbnail}" class="img-responsive">
+                                </div>
+                                <div class="col-sm-9">
+                                    <p><strong>${event.name}</strong></p>
+                                    <p>${event.description}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    `;
+                        $('#events_found').append(row);
+                    });
+                });
+            } else {
+                $('#events_found').empty();
+            }
+        });
+    </script>
 @endsection

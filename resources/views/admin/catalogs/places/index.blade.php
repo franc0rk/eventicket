@@ -116,13 +116,21 @@
 
             /* Store a Place */
             $('#storeButton').click(function () {
-                var data = {
+                /*var data = {
                     state_id: select_state.val(),
                     name: $('#name').val()
-                };
+                };*/
 
-                console.log(data);
-                axios.post('places', data)
+                var form_data = new FormData();
+                $.each($('#image')[0].files, function(i, file) {
+                    form_data.append('image', file);
+                });
+
+                form_data.append('state_id', select_state.val());
+                form_data.append('name', $('#name').val());
+                form_data.append('address', $('#address').val());
+
+                axios.post('places', form_data)
                     .then(function (response) {
                         console.log(response);
                         toastr.success('Lugar creado');

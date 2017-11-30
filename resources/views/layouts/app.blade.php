@@ -39,12 +39,6 @@
             @yield('content')
         </div>
 
-        <footer>
-            <div class="col-xs-12">
-                <p>EvenTicket&copy; 2017. Todos los derechos reservados.</p>
-            </div>
-        </footer>
-
         <script src="{{ asset('js/app.js') }}"></script>
         <!-- Selectize js plugin -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>

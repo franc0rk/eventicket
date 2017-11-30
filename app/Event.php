@@ -17,6 +17,7 @@ class Event extends Model
         'image_cover',
         'image_thumbnail',
         'date',
+        'state_id'
     ];
 
     public function eventType()
@@ -29,7 +30,7 @@ class Event extends Model
         return $this->belongsTo(Place::class);
     }
 
-    public function setImageThumbnailAttribute($image)
+    /*public function setImageThumbnailAttribute($image)
     {
         if(!empty($image)) {
             $name = Carbon::now()->second . $image->getClientOriginalName();
@@ -47,7 +48,14 @@ class Event extends Model
         }
     }
 
-    public function scopeSearch($query, $search) {
+    public function setStateIdAttribute($place_id)
+    {
+        $place = Place::findOrFail($place_id);
+        $this->attributes['state_id'] = $place->state_id;
+    }*/
+
+    public function scopeSearch($query, $search)
+    {
         $value = '%' . $search . '%';
 
         return $query
@@ -55,6 +63,21 @@ class Event extends Model
             ->orWhere('name', 'like', $value)
             ->orWhere('description', 'like', $value)
             ->orWhere('date','like',$value);
+    }
+
+    public function scopeByState($query, $states)
+    {
+        return $query->whereIn('state_id', $states);
+    }
+
+    public function scopeByEventType($query, $event_types)
+    {
+        return $query->whereIn('event_type_id',$event_types);
+    }
+
+    public function scopeCurrent($query)
+    {
+        return $query->where('date','>',Carbon::now());
     }
 
 }

@@ -17,8 +17,10 @@ class CreatePlacesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('state_id');
             $table->string('name');
+            $table->string('address');
+            $table->string('image');
 
-            $table->foreign('state_id')->references('id')->on('states');
+            $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
 
             $table->timestamps();
         });

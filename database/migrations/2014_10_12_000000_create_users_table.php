@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('user_type_id');
+            $table->unsignedInteger('user_type_id')->default(2);
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->date('birthday');
 
-            $table->foreign('user_type_id')->references('id')->on('user_types');
+            $table->foreign('user_type_id')->references('id')->on('user_types')->onDelete('cascade');
 
             $table->rememberToken();
             $table->timestamps();

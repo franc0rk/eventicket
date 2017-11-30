@@ -3,11 +3,6 @@
     margin-bottom: 0;
 }
 
-#app {
-    /*margin-top: 48px;*/
-    min-height: 500px;
-}
-
 .tickets-counter {
     background: #000;
     border-radius: 50%;
@@ -29,7 +24,6 @@ footer {
     background: #2c3e50;
     color: #fff;
     height: 50px;
-    margin-top: 20px;
     text-align: center;
 }
 
@@ -52,7 +46,7 @@ footer p {
     margin-bottom: 40px;
 }
 
-.price {
+#total {
     margin-top: 20px;
 }
 
@@ -84,4 +78,12 @@ footer p {
 
 .catalog-title {
     margin-bottom: 48px;
+}
+
+.w100 {
+    width: 100%;
+}
+
+#deleteUser {
+    color: #e74c3c;
 }
